@@ -35,7 +35,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: azure-vote-back
-  namespace: default
+  namespace: vote-config
 spec:
   ports:
   - port: 6379
@@ -78,7 +78,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: azure-vote-front
-  namespace: default
+  namespace: vote-config
 spec:
   type: LoadBalancer
   ports:
