@@ -1,4 +1,4 @@
-#Azure Cloud Native Sammit
+#Azure Cloud Native Summit
 
 ##GitOps in AKS Demo
 
