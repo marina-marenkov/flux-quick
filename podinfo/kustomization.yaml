@@ -6,5 +6,5 @@ metadata:
 resources:
   - deployment.yaml
   - service.yaml
-  - hpa.yaml
+ # - hpa.yaml
   
