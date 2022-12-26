@@ -1,0 +1,27 @@
+alias k=kubectl
+
+kubectl config current-context
+kubectl config get-contexts 
+kubectl config use-context
+
+kubectl get fluxconfigs -A
+kubectl get gitrepositories -A
+kubectl get helmreleases -A
+kubectl get kustomizations -A
+
+export RG=aks-go-demo-rg
+export CLUSTER=mm-aks-go-demo
+
+#install flux
+az k8s-extension list -g $RG -c $CLUSTER -t managedClusters
+
+az k8s-extension create -g $RG -c $CLUSTER -n flux --extension-type microsoft.flux -t managedClusters --auto-upgrade-minor-version true
+
+
+#create flux configuration
+az k8s-configuration flux create -g $RG -c $CLUSTER \
+  -n cluster-config --namespace cluster-config -t managedClusters \
+  --scope cluster -u https://github.com/marina-marenkov/flux-quick.git \
+  --branch main  \
+  --kustomization name=infra path=./infra prune=true \
+  --kustomization name=apps path=./apps prune=true dependsOn=\["infra"\]
